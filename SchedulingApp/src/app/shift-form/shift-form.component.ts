@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DataService } from '../data.service';
 import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { Employee } from 'src/model/employee';
+import { Shift } from 'src/model/shift';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { Employee } from 'src/model/employee';
 export class ShiftFormComponent implements OnInit {
 
   @Output() saved = new EventEmitter<boolean>()
-  @Input() employee!: Employee
+  @Input() shift!: Shift
 
   isUpdate = false
 
@@ -23,16 +23,14 @@ export class ShiftFormComponent implements OnInit {
   }
 
   formGroup: FormGroup = this.formBuilder.group({
-    employeeID: [null, Validators.required],
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    position: [null, Validators.required],
-    wage: [null, Validators.required],
-    badge: [null, Validators.required],
+    id: [null, Validators.required],
+    startTime: [null, Validators.required],
+    endTime: [null, Validators.required],
+    employee: [null, Validators.required],
   })
 
   ngOnInit(): void {
-    if (this.employee) {
+    if (this.shift) {
       this.updateFormData()
       this.isUpdate = true
     }
@@ -40,32 +38,26 @@ export class ShiftFormComponent implements OnInit {
 
   updateFormData() {
     const {
-      employeeID,
-      firstName,
-      lastName,
-      position,
-      wage,
-      badge,
-    } = this.employee
+      id,
+      startTime,
+      endTime,
+      employee
+    } = this.shift
 
     this.formGroup.patchValue({
-      employeeID,
-      firstName,
-      lastName,
-      position,
-      wage,
-      badge,
+      id,
+      startTime,
+      endTime,
+      employee
     })
   }
 
   save() {
     const {
-      employeeID,
-      firstName,
-      lastName,
-      position,
-      wage,
-      badge,
+      id,
+      startTime,
+      endTime,
+      employee
     } = this.formGroup.value
     const formData = this.formGroup.value
     if (this.isUpdate) {

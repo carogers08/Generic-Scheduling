@@ -1,22 +1,16 @@
 <form [formGroup]="formGroup">
     <div class="title">Add Contact</div>
-    <div style="margin:5px">Employee ID: 
-        <input formControlName="employeeID">
+    <div style="margin:5px">ID: 
+        <input formControlName="id">
     </div>
-    <div style="margin:5px">First Name: 
-        <input formControlName="firstName">
+    <div style="margin:5px">Start Time: 
+        <input formControlName="startTime">
     </div>
-    <div style="margin:5px">Last Name: 
-        <input formControlName="lastName">
+    <div style="margin:5px">End Time: 
+        <input formControlName="endTime">
     </div>
-    <div style="margin:5px">Wage: 
-        <input formControlName="wage">
-    </div>
-    <div style="margin:5px">Position: 
-        <input formControlName="position">
-    </div>
-    <div style="margin:5px">Badge Number: 
-        <input formControlName="badge">
+    <div style="margin:5px">Employee: 
+        <input formControlName="employee">
     </div>
     <button class="button" (click)="reset()">Reset</button>
     <button class="button" (click)="save()">Save</button>
