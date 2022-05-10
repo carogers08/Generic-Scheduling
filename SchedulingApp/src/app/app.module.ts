@@ -13,13 +13,15 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { EmployeeFormComponent } from './employee-form/employee-form.component';
 import { ShiftFormComponent } from './shift-form/shift-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DateDetailsComponent } from './date-details/date-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CalendarComponent,
     EmployeeFormComponent,
-    ShiftFormComponent
+    ShiftFormComponent,
+    DateDetailsComponent
   ],
   imports: [
     BrowserModule,
