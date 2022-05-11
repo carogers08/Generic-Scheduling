@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DateDetail } from 'src/model/DateDetail';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'SchedulingApp';
-  jacesEdit = 'working'
-  karterEdit = 'testing'
+  currentDetails: DateDetail;
+  showDetails: Boolean = false;
+  
+  ViewDetails(details: DateDetail) {
+    this.currentDetails = details;
+    this.showDetails = true;
+  }
+
+  changeDetails() {
+    this.showDetails = !this.showDetails;
+    console.log(this.showDetails);
+  }
 }

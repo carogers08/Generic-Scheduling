@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   TemplateRef,
+  Input, Output, EventEmitter
 } from '@angular/core';
 import {
   startOfDay,
@@ -21,21 +22,8 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
-
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3',
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA',
-  },
-};
+import { DataService } from '../data.service';
+import { DateDetail } from 'src/model/DateDetail';
 
 @Component({
   selector: 'app-calendar',
@@ -43,28 +31,30 @@ const colors: any = {
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent {
+  @Output() showDetails = new EventEmitter<DateDetail>()
+
   view: CalendarView = CalendarView.Month;
-
+  viewDate : Date = new Date();
   CalendarView = CalendarView;
+  currentDate: DateDetail;
+  activeDayIsOpen: boolean = false;
 
-  viewDate: Date = new Date();
-
-  activeDayIsOpen: boolean = true;
-
-  constructor() {}
+  constructor(private dbService: DataService) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-      this.viewDate = date;
-    }
+    this.dbService.getDate(date).subscribe(
+      (data: DateDetail[] | undefined | null) => {
+        if (data == null || data.length == 0) {
+          this.currentDate = new DateDetail();
+          this.currentDate.date = date;
+          this.currentDate.setDateString();
+        } else {
+          this.currentDate = data[0];
+          this.currentDate.date = date;
+        }
+
+        this.showDetails.emit(this.currentDate);
+      });
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
