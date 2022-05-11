@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 import { Employee } from 'src/model/employee';
 import { Shift } from 'src/model/shift';
 import { DateDetail } from 'src/model/DateDetail';
@@ -83,7 +85,20 @@ export class DataService {
         })
       );
   }
+  
+  updateEmployee(updated: Employee) {
+    return this.http.put(
+      'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'employee.json',
+      updated
+    );
+  }
 
+  updateShift(updated: Shift) {
+    return this.http.put(
+      'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'shift.json',
+      updated
+    );
+  }
 
   constructor(private http: HttpClient) { }
 }
