@@ -1,16 +1,19 @@
 <form [formGroup]="formGroup">
-    <div class="title">Add Contact</div>
+    <div class="title">Add Shift</div>
     <div style="margin:5px">ID: 
         <input formControlName="id">
     </div>
     <div style="margin:5px">Start Time: 
-        <input formControlName="startTime">
+        <input type="time" formControlName="startTime">
     </div>
     <div style="margin:5px">End Time: 
-        <input formControlName="endTime">
+        <input type="time" formControlName="endTime">
     </div>
     <div style="margin:5px">Employee: 
-        <input formControlName="employee">
+        <select formControlName="employee">
+            <option value="" selected></option>
+            <option *ngFor="let employee of employees" [value]="employee.employeeID">{{employee.firstName + ' ' + employee.lastName}}</option>
+        </select>
     </div>
     <button class="button" (click)="reset()">Reset</button>
     <button class="button" (click)="save()">Save</button>

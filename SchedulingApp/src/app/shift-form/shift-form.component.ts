@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DataService } from '../data.service';
 import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Shift } from 'src/model/shift';
+import { Employee } from 'src/model/employee';
+import { Observable } from 'rxjs';
+import { Time } from '@angular/common';
 
 
 @Component({
@@ -15,6 +18,7 @@ export class ShiftFormComponent implements OnInit {
   @Input() shift!: Shift
 
   isUpdate = false
+  employees: Employee[] = []
 
   constructor(
     private readonly service: DataService,
@@ -34,38 +38,58 @@ export class ShiftFormComponent implements OnInit {
       this.updateFormData()
       this.isUpdate = true
     }
+    this.service.getEmployees().subscribe((data) => {
+      this.employees = data
+    })
   }
 
   updateFormData() {
-    // const {
-    //   id,
-    //   startTime,
-    //   endTime,
-    //   employee
-    // } = this.shift
+     const {
+       id,
+       startHour,
+       endHour,
+       startMinute,
+       endMinute,
+       employee
+     } = this.shift
 
-    // this.formGroup.patchValue({
-    //   id,
-    //   startTime,
-    //   endTime,
-    //   employee
-    // })
+     let startTime: Time = {hours: startHour, minutes: startMinute}
+     let endTime: Time = {hours: endHour, minutes: startMinute}
+
+     this.formGroup.patchValue({
+       id,
+       startTime,
+       endTime,
+       employee
+     })
   }
 
   save() {
     const {
       id,
-      startTime,
-      endTime,
+      startHour,
+      endHour,
+      startMinute,
+      endMinute,
       employee
     } = this.formGroup.value
     const formData = this.formGroup.value
     if (this.isUpdate) {
-      this.service.updateEmployee(formData)
-      this.saved.emit(true)
+      formData.startHour = Number(formData.startTime.toString().split(':')[0])
+      formData.startMinute = Number(formData.startTime.toString().split(':')[1])
+      formData.endHour = Number(formData.endTime.toString().split(':')[0])
+      formData.endMinute = Number(formData.endTime.toString().split(':')[1])
+      if (formData.endHour > formData.startHour) {
+        this.service.updateShift(formData).subscribe()
+      }
     } else {
-      this.service.addEmployee(formData)
-      this.saved.emit(true)
+      formData.startHour = Number(formData.startTime.toString().split(':')[0])
+      formData.startMinute = Number(formData.startTime.toString().split(':')[1])
+      formData.endHour = Number(formData.endTime.toString().split(':')[0])
+      formData.endMinute = Number(formData.endTime.toString().split(':')[1])
+      if (formData.endHour > formData.startHour) {
+        this.service.addShift(formData).subscribe()
+      }
     }
   }
 
