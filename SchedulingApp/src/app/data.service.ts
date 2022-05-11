@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 import { Employee } from 'src/model/employee';
 import { Shift } from 'src/model/shift';
+import { DateDetail } from 'src/model/DateDetail';
 
 @Injectable({
   providedIn: 'root'
@@ -52,8 +55,6 @@ export class DataService {
         })
       );
   }
-
-
 
   constructor(private http: HttpClient) { }
 }
