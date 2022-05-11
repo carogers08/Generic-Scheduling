@@ -22,21 +22,8 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
-
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3',
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA',
-  },
-};
+import { DataService } from '../data.service';
+import { DateDetail } from 'src/model/DateDetail';
 
 @Component({
   selector: 'app-calendar',
@@ -45,27 +32,26 @@ const colors: any = {
 })
 export class CalendarComponent {
   view: CalendarView = CalendarView.Month;
-
+  viewDate : Date = new Date();
   CalendarView = CalendarView;
+  currentDate: DateDetail;
+  activeDayIsOpen: boolean = false;
 
-  viewDate: Date = new Date();
-
-  activeDayIsOpen: boolean = true;
-
-  constructor() {}
+  constructor(private dbService: DataService) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-      this.viewDate = date;
-    }
+    // this.dbService.getDateDetails(date).subscribe(
+    //   (data: DateDetail | null) => {
+    //     if (data != null) {
+    //       this.currentDate = data;
+    //     console.log(data); //calebx - this is just so we can be sure it is working
+    //     } else {
+    //       this.currentDate = new DateDetail();
+    //     }
+    //   });
+
+    //calebx - we have the currentDate object populated so that you can send it in as and Input() to your
+    //date detail page. you could probably use an NgIf or something. 
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
