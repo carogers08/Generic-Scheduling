@@ -14,20 +14,9 @@ import { isThisSecond } from 'date-fns';
 export class DataService {
   employeePath = 'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'employee.json'
   shiftPath = 'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'shift.json'
+  baseUrl: string = 'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/';
 
   constructor(private http: HttpClient) { }
-  baseUrl: string = 'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/';
-  Employees: Employee[]=[
-  ];
-
-  Shifts: Shift[]=[
-
-  ];
-  DateDetails: DateDetail[]=[
-
-  ];
-
-  
 
   addEmployee(newEmp: Employee) {
     return this.http.post(

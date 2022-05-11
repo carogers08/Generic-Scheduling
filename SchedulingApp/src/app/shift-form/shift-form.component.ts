@@ -16,7 +16,6 @@ export class ShiftFormComponent implements OnInit {
 
   @Output() saved = new EventEmitter<boolean>()
   @Input() shift!: Shift
-  @Input() date!: Date
 
   isUpdate = false
   employees: Employee[] = []
@@ -45,55 +44,50 @@ export class ShiftFormComponent implements OnInit {
   }
 
   updateFormData() {
-    // const {
-    //   id,
-    //   startTime,
-    //   endTime,
-    //   employee
-    // } = this.shift
+     const {
+       id,
+       startHour,
+       endHour,
+       startMinute,
+       endMinute,
+       employee
+     } = this.shift
 
-    // this.formGroup.patchValue({
-    //   id,
-    //   startTime,
-    //   endTime,
-    //   employee
-    // })
+     let startTime: Time = {hours: startHour, minutes: startMinute}
+     let endTime: Time = {hours: endHour, minutes: startMinute}
+
+     this.formGroup.patchValue({
+       id,
+       startTime,
+       endTime,
+       employee
+     })
   }
 
   save() {
     const {
       id,
-      startTime,
-      endTime,
+      startHour,
+      endHour,
+      startMinute,
+      endMinute,
       employee
     } = this.formGroup.value
     const formData = this.formGroup.value
     if (this.isUpdate) {
-      let time: Time = {hours: 0, minutes: 0}
-      time.hours = Number(formData.startTime.toString().split(':')[0])
-      time.minutes = Number(formData.startTime.toString().split(':')[1])
-      this.date.setHours(time.hours)
-      this.date.setMinutes(time.minutes)
-      formData.startTime = this.date
-      time.hours = Number(formData.endTime.toString().split(':')[0])
-      time.minutes = Number(formData.endTime.toString().split(':')[1])
-      this.date.setHours(time.hours)
-      this.date.setMinutes(time.minutes)
-      formData.endTime = this.date
-      this.service.updateShift(formData).subscribe()
+      formData.startHour = Number(formData.startTime.toString().split(':')[0])
+      formData.startMinute = Number(formData.startTime.toString().split(':')[1])
+      formData.endHour = Number(formData.endTime.toString().split(':')[0])
+      formData.endMinute = Number(formData.endTime.toString().split(':')[1])
+      if (formData.endHour > formData.startHour) {
+        this.service.updateShift(formData).subscribe()
+      }
     } else {
-      let time: Time = {hours: 0, minutes: 0}
-      time.hours = Number(formData.startTime.toString().split(':')[0])
-      time.minutes = Number(formData.startTime.toString().split(':')[1])
-      this.date.setHours(time.hours)
-      this.date.setMinutes(time.minutes)
-      formData.startTime = this.date
-      time.hours = Number(formData.endTime.toString().split(':')[0])
-      time.minutes = Number(formData.endTime.toString().split(':')[1])
-      this.date.setHours(time.hours)
-      this.date.setMinutes(time.minutes)
-      formData.endTime = this.date
-      if (formData.endTime > formData.startTime) {
+      formData.startHour = Number(formData.startTime.toString().split(':')[0])
+      formData.startMinute = Number(formData.startTime.toString().split(':')[1])
+      formData.endHour = Number(formData.endTime.toString().split(':')[0])
+      formData.endMinute = Number(formData.endTime.toString().split(':')[1])
+      if (formData.endHour > formData.startHour) {
         this.service.addShift(formData).subscribe()
       }
     }
