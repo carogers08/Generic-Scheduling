@@ -3,13 +3,23 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Employee } from 'src/model/employee';
 import { Shift } from 'src/model/shift';
+import { DateDetail } from 'src/model/DateDetail';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  Employees: Employee[]=[];
-  Shifts: Shift[]=[];
+  Employees: Employee[]=[
+  ];
+
+  Shifts: Shift[]=[
+
+  ];
+  DateDetails: DateDetail[]=[
+
+  ];
+
+  
 
   addEmployee(newEmp: Employee) {
     return this.http.post(
@@ -22,6 +32,13 @@ export class DataService {
     return this.http.post(
       'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'shift.json',
       newShift
+    );
+  }
+
+  addDateDetail(newDateDetail: DateDetail) {
+    return this.http.post(
+      'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'datedetail.json',
+      newDateDetail
     );
   }
 
@@ -53,6 +70,19 @@ export class DataService {
       );
   }
 
+  getDateDetails() {
+    return this.http
+      .get<DateDetail[]>(
+        'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'datedetail.json'
+      )
+      .pipe(
+        map((responseData) => {
+          const dateDetailList: DateDetail[] = [];
+          for (const key in responseData) dateDetailList.push(responseData[key]);
+          return dateDetailList;
+        })
+      );
+  }
 
 
   constructor(private http: HttpClient) { }
