@@ -14,6 +14,7 @@ import { EmployeeFormComponent } from './employee-form/employee-form.component';
 import { ShiftFormComponent } from './shift-form/shift-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DateDetailsComponent } from './date-details/date-details.component';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DateDetailsComponent } from './date-details/date-details.component';
     CalendarComponent,
     EmployeeFormComponent,
     ShiftFormComponent,
-    DateDetailsComponent
+    DateDetailsComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,

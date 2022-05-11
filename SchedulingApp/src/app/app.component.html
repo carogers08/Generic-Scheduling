@@ -1,4 +1,10 @@
 <br>
 
-
-<app-date-details></app-date-details>
+<app-calendar 
+    (showDetails)="ViewDetails($event)"
+    *ngIf="!showDetails"
+></app-calendar>
+<app-details 
+    [details]="currentDetails"
+    *ngIf="showDetails"
+></app-details>

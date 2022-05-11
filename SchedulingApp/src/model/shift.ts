@@ -1,8 +1,12 @@
 import { Employee } from "./employee";
 
-export interface Shift {
+export interface Shift { //under the assumption of no overnight shifts
     id: number,
-    startTime: Date,
-    endTime: Date,
-    employee: Employee
+    employee: Employee,
+    
+    //start and end time uses the 24 hour clock
+    startHour: number,
+    startMinute: number,
+    endHour: number,
+    endMinute: number
 }

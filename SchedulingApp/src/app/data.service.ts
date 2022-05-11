@@ -6,11 +6,13 @@ import { Observable } from 'rxjs';
 import { Employee } from 'src/model/employee';
 import { Shift } from 'src/model/shift';
 import { DateDetail } from 'src/model/DateDetail';
+import { isThisSecond } from 'date-fns';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  baseUrl: string = 'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/';
   Employees: Employee[]=[
   ];
 
@@ -84,6 +86,21 @@ export class DataService {
           return dateDetailList;
         })
       );
+  }
+
+  getDate(date: Date) {
+    let dateString: string = date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear();
+    console.log("Looking up date: " + dateString);
+
+    return this.http.get<DateDetail[]>(
+      this.baseUrl + 'datedetails.json?orderBy="date"&equalTo="' + dateString + '"'
+    ).pipe(
+      map((responseData) => {
+        const dateDetailList: DateDetail[] = [];
+        for (const key in responseData) dateDetailList.push(responseData[key]);
+        return dateDetailList
+      })
+    );
   }
   
   updateEmployee(updated: Employee) {

@@ -37,19 +37,19 @@ export class ShiftFormComponent implements OnInit {
   }
 
   updateFormData() {
-    const {
-      id,
-      startTime,
-      endTime,
-      employee
-    } = this.shift
+    // const {
+    //   id,
+    //   startTime,
+    //   endTime,
+    //   employee
+    // } = this.shift
 
-    this.formGroup.patchValue({
-      id,
-      startTime,
-      endTime,
-      employee
-    })
+    // this.formGroup.patchValue({
+    //   id,
+    //   startTime,
+    //   endTime,
+    //   employee
+    // })
   }
 
   save() {

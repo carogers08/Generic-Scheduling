@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   ViewChild,
   TemplateRef,
-  Input,
+  Input, Output, EventEmitter
 } from '@angular/core';
 import {
   startOfDay,
@@ -31,6 +31,8 @@ import { DateDetail } from 'src/model/DateDetail';
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent {
+  @Output() showDetails = new EventEmitter<DateDetail>()
+
   view: CalendarView = CalendarView.Month;
   viewDate : Date = new Date();
   CalendarView = CalendarView;
@@ -40,18 +42,19 @@ export class CalendarComponent {
   constructor(private dbService: DataService) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    // this.dbService.getDateDetails(date).subscribe(
-    //   (data: DateDetail | null) => {
-    //     if (data != null) {
-    //       this.currentDate = data;
-    //     console.log(data); //calebx - this is just so we can be sure it is working
-    //     } else {
-    //       this.currentDate = new DateDetail();
-    //     }
-    //   });
+    this.dbService.getDate(date).subscribe(
+      (data: DateDetail[] | undefined | null) => {
+        if (data == null || data.length == 0) {
+          this.currentDate = new DateDetail();
+          this.currentDate.date = date;
+          this.currentDate.setDateString();
+        } else {
+          this.currentDate = data[0];
+          this.currentDate.date = date;
+        }
 
-    //calebx - we have the currentDate object populated so that you can send it in as and Input() to your
-    //date detail page. you could probably use an NgIf or something. 
+        this.showDetails.emit(this.currentDate);
+      });
   }
 
   handleEvent(action: string, event: CalendarEvent): void {

@@ -113,20 +113,21 @@ export class DateDetailsComponent implements OnInit{
     badge: 2
   },];
   shifts: Shift[] =[
-    {
-      id: 567,
-      startTime: new Date('2022, May, 10, 06:00'),
-      endTime: new Date('2022, May, 10, 21:30'),
-      employee: this.employees[0]
-    }
+    // {
+    //   id: 567,
+    //   startTime: new Date('2022, May, 10, 06:00'),
+    //   endTime: new Date('2022, May, 10, 21:30'),
+    //   employee: this.employees[0]
+    // }
   ];
 
-  dateDetails: DateDetail[] = [    {
-    id: 1, 
-    date: new Date('2022, May, 10'),
-    shifts: this.shifts
-  }
-];
+  dateDetails: DateDetail[] = [  
+    // {
+    // id: 1, 
+    // date: new Date('2022, May, 10'),
+    // shifts: this.shifts
+    // }
+  ];
 
   ngOnInit()
   {
@@ -186,17 +187,14 @@ activeDayIsOpen: boolean = true;
 
   viewDate: Date = new Date();
 
-  events: CalendarEvent[] = [
-    
-    {
-      start: startOfMinute(this.dateDetails[0].shifts[0].startTime),
-      end: endOfMinute(this.dateDetails[0].shifts[0].endTime),
-      title: this.dateDetails[0].shifts[0].employee.firstName,
-      color: colors.red,
+  events: CalendarEvent[] = [  
+    // {
+    //   start: startOfMinute(this.dateDetails[0].shifts[0].startTime),
+    //   end: endOfMinute(this.dateDetails[0].shifts[0].endTime),
+    //   title: this.dateDetails[0].shifts[0].employee.firstName,
+    //   color: colors.red,
       
-    },
-    
+    // }, 
   ];
-
 
 }
