@@ -38,6 +38,7 @@ export class CalendarComponent {
   CalendarView = CalendarView;
   currentDate: DateDetail;
   activeDayIsOpen: boolean = false;
+  showForm: boolean = false;
 
   constructor(private dbService: DataService) {}
 
@@ -66,5 +67,9 @@ export class CalendarComponent {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+  }
+
+  showEmployeeForm() {
+    this.showForm = !this.showForm
   }
 }

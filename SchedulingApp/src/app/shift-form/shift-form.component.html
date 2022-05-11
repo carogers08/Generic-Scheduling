@@ -12,7 +12,7 @@
     <div style="margin:5px">Employee: 
         <select formControlName="employee">
             <option value="" selected></option>
-            <option *ngFor="let employee of employees" [value]="employee">{{employee.firstName + ' ' + employee.lastName}}</option>
+            <option *ngFor="let employee of employees" [value]="employee.employeeID">{{employee.firstName + ' ' + employee.lastName}}</option>
         </select>
     </div>
     <button class="button" (click)="reset()">Reset</button>

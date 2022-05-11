@@ -11,11 +11,16 @@ import { Shift } from 'src/model/shift';
 export class DetailsComponent implements OnInit {
   @Input() details: DateDetail;
 
+  showForm: boolean = false
+
   constructor() { }
 
   ngOnInit(): void {
     console.log(this.details.dateString)
   }
 
+  showShiftForm() {
+    this.showForm = !this.showForm
+  }
   
 }
