@@ -14,7 +14,7 @@ export class DetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.details.dateString)
+    console.log("finding this daaate" + this.details.dateString)
   }
 
   

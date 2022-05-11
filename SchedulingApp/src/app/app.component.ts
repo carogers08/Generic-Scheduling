@@ -10,8 +10,8 @@ export class AppComponent {
   currentDetails: DateDetail;
   showDetails: Boolean = false;
   
-  ViewDetails(details: DateDetail) {
-    this.currentDetails = details;
+  ViewDetails(dateDetailsPage: DateDetail) {
+    this.currentDetails = dateDetailsPage;
     this.showDetails = true;
   }
 

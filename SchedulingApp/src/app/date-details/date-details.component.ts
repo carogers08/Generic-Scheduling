@@ -5,7 +5,9 @@ import {
   ViewChild,
   TemplateRef,
   Input,
-  OnInit
+  OnInit,
+  EventEmitter,
+  Output
 } from '@angular/core';
 import {
   startOfDay,
@@ -31,10 +33,6 @@ import { Employee } from 'src/model/employee';
 import { Shift } from 'src/model/shift';
 import { DateDetail } from 'src/model/DateDetail';
 
-
-
-
-
 const colors: any = {
   red: {
     primary: '#ad2121',
@@ -57,144 +55,98 @@ const colors: any = {
 })
 export class DateDetailsComponent implements OnInit{
   constructor(private dataService: DataService) { }
+  @Output() showDetails = new EventEmitter<DateDetail>()
 
+  @Input() dateDetailsPage: DateDetail;
 
- 
-/*
-  @Input()
-  Employee!: {
-    employeeID: number;
-    firstName: string;
-    lastName: string;
-    position: string;
-    wage: number;
-    badge: number;
-  };
-
-  @Input()
-  Shift!: {
-    id: number;
-    startTime: Date;
-    endTime: Date;
-    employee: Employee;
-  };
-
-  @Input()
-  DateDetail!: {
-    id: number;
-    date: Date;
-    shifts: Array<Shift>;
+  @Input()   closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
   }
-*/
+    view: CalendarView = CalendarView.Day;
+  
+    @Input() CalendarView = CalendarView;
+  
+    viewDate: Date = new Date();
+
+  currentDate: DateDetail;
+
+  currentViewDate: Date;
+
+  employees: Employee[] =[];
+  shifts: Shift[] =[];
+  dateDetails: DateDetail[] = [];
+  currentShifts: Shift[] = [];
+  events: CalendarEvent[]=[];
 
 
-  employees: Employee[] =[    {
-    employeeID: 501,
-    firstName: "John",
-    lastName: "Jerald",
-    position: "server",
-    wage: 4.2,
-    badge: 18
-  },
-  {
-    employeeID: 502,
-    firstName: "Hue",
-    lastName: "Jeff",
-    position: "manager",
-    wage: 23.10,
-    badge: 9
-  },
-  {
-    employeeID: 503,
-    firstName: "Lori",
-    lastName: "Philip",
-    position: "server",
-    wage: 3.10,
-    badge: 2
-  },];
-  shifts: Shift[] =[
-    // {
-    //   id: 567,
-    //   startTime: new Date('2022, May, 10, 06:00'),
-    //   endTime: new Date('2022, May, 10, 21:30'),
-    //   employee: this.employees[0]
-    // }
-  ];
-
-  dateDetails: DateDetail[] = [  
-    // {
-    // id: 1, 
-    // date: new Date('2022, May, 10'),
-    // shifts: this.shifts
-    // }
-  ];
+  getViewDate(){
+    //this.dataService.getDate(this.dateDetailsPage.date).subscribe( (data) => {this.currentViewDate = data;})
+  }
 
   ngOnInit()
   {
+
+    this.fetchData();
+    this.addCalendarEvents();
   }
 
   
   fetchData() {
-    this.dataService.getEmployees().subscribe((data) => {
-      this.employees = data;
+    
+    this.dataService.getShifts().subscribe((data) => {
+      this.shifts = data;
     })
+    
+    
     this.dataService.getDateDetails().subscribe((data) => {
       this.dateDetails = data;
     })
-    this.dataService.getDateDetails().subscribe((data) => {
-      this.dateDetails = data;
-    })
+    
+    /*
+    for (let i=0; i<this.shifts.length; i++)
+    {
+      if (isSameDay(this.dataService.getDate(this.dateDetails), this.currentDate))
+      {
+        this.currentShifts[i]=this.shifts[i];
+      }
+      console.log(this.viewDate);
+    }
+    
+    this.currentDate = {
+      id: 234,
+      date: this.currentShifts[0].startTime,
+      shifts: this.currentShifts
+    }
+    */
+
+  }
+  
+  
+
+  addCalendarEvents():void {
+    
+    console.log("date is " +this.dateDetailsPage.dateString);
+    for (let i=0; i<this.dateDetailsPage.shifts.length; i++){
+      this.events[i]={
+        start: startOfMinute(this.dateDetailsPage.shifts[i].startMinute),
+        end: endOfMinute(this.dateDetailsPage.shifts[i].endMinute),
+        title: this.dateDetailsPage.shifts[i].employee.firstName,
+        color: colors.red,
+      }
+    }
   }
 
-  addEmployeeShiftData() {
-    this.dataService.addEmployee(this.employees[0]).subscribe((data) => {
-      console.log(data)
-      this.fetchData();
-    });
-    this.dataService.addShift(this.shifts[0]).subscribe((data) => {
-      console.log(data)
-      this.fetchData();
-    });
-    this.dataService.addDateDetail(this.dateDetails[0]).subscribe((data) => {
-      console.log(data)
-      this.fetchData();
-    });
-  }
+
 
 
 
 activeDayIsOpen: boolean = true;
-@Input()   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-  if (isSameMonth(date, this.viewDate)) {
-    if (
-      (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-      events.length === 0
-    ) {
-      this.activeDayIsOpen = false;
-    } else {
-      this.activeDayIsOpen = true;
-    }
-    this.viewDate = date;
-  }
-}
 
-@Input()   closeOpenMonthViewDay() {
-  this.activeDayIsOpen = false;
-}
-  view: CalendarView = CalendarView.Day;
 
-  @Input() CalendarView = CalendarView;
 
-  viewDate: Date = new Date();
 
-  events: CalendarEvent[] = [  
-    // {
-    //   start: startOfMinute(this.dateDetails[0].shifts[0].startTime),
-    //   end: endOfMinute(this.dateDetails[0].shifts[0].endTime),
-    //   title: this.dateDetails[0].shifts[0].employee.firstName,
-    //   color: colors.red,
-      
-    // }, 
-  ];
+
+
+
 
 }
