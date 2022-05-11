@@ -8,19 +8,21 @@ import { Shift } from 'src/model/shift';
   providedIn: 'root'
 })
 export class DataService {
-  Employees: Employee[]=[];
-  Shifts: Shift[]=[];
+  employeePath = 'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'employee.json'
+  shiftPath = 'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'shift.json'
+
+  constructor(private http: HttpClient) { }
 
   addEmployee(newEmp: Employee) {
     return this.http.post(
-      'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'employee.json',
+      this.employeePath,
       newEmp
     );
   }
 
   addShift(newShift: Shift) {
     return this.http.post(
-      'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'shift.json',
+      this.shiftPath,
       newShift
     );
   }
@@ -28,7 +30,7 @@ export class DataService {
   getEmployees() {
     return this.http
       .get<Employee[]>(
-        'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'employee.json'
+        this.employeePath
       )
       .pipe(
         map((responseData) => {
@@ -42,7 +44,7 @@ export class DataService {
   getShifts() {
     return this.http
       .get<Shift[]>(
-        'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'shift.json'
+        this.shiftPath
       )
       .pipe(
         map((responseData) => {
@@ -55,18 +57,15 @@ export class DataService {
 
   updateEmployee(updated: Employee) {
     return this.http.put(
-      'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'employee.json',
+      this.employeePath,
       updated
     );
   }
 
   updateShift(updated: Shift) {
     return this.http.put(
-      'https://scheduledatabase-a3221-default-rtdb.firebaseio.com/' + 'shift.json',
+      this.shiftPath,
       updated
     );
   }
-
-
-  constructor(private http: HttpClient) { }
 }

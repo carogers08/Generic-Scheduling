@@ -68,10 +68,10 @@ export class EmployeeFormComponent implements OnInit {
     } = this.formGroup.value
     const formData = this.formGroup.value
     if (this.isUpdate) {
-      this.service.updateEmployee(formData)
+      this.service.updateEmployee(formData).subscribe()
       this.saved.emit(true)
     } else {
-      this.service.addEmployee(formData)
+      this.service.addEmployee(formData).subscribe()
       this.saved.emit(true)
     }
   }
