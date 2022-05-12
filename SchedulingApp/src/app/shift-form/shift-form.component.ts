@@ -83,8 +83,8 @@ export class ShiftFormComponent implements OnInit {
       formData.endMinute = Number(formData.endTime.toString().split(':')[1])
       formData.date = this.viewDate1;
       if (formData.endHour > formData.startHour) {
-        
         this.service.updateShift(formData).subscribe()
+        this.formGroup.reset()
       }
     } else {
       formData.date = this.viewDate1;
@@ -94,14 +94,12 @@ export class ShiftFormComponent implements OnInit {
       formData.endMinute = Number(formData.endTime.toString().split(':')[1])
       if (formData.endHour > formData.startHour) {
         this.service.addShift(formData).subscribe()
+        this.formGroup.reset()
       }
     }
-
-
   }
   
-
   reset() {
-    this.updateFormData()
+    this.formGroup.reset()
   }
 }

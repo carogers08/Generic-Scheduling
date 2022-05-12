@@ -53,12 +53,8 @@ export class CalendarComponent {
           this.currentDate = data[0];
           this.currentDate.date = date;
         }
-
         this.showDetails.emit(this.currentDate);
       });
-  }
-
-  handleEvent(action: string, event: CalendarEvent): void {
   }
 
   setView(view: CalendarView) {

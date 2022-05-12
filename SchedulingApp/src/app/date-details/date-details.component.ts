@@ -31,8 +31,8 @@ import {
 import { DataService } from '../data.service';
 import { Employee } from 'src/model/employee';
 import { Shift } from 'src/model/shift';
-import { DateDetail } from 'src/model/DateDetail';
 import { DatePipe } from '@angular/common';
+import { DateDetail } from 'src/model/DateDetail';
 
 const colors: any = {
   red: {
@@ -80,17 +80,11 @@ export class DateDetailsComponent implements OnInit{
   currentShifts: Shift[] = [];
   events: CalendarEvent[]=[];
 
-
-  getViewDate(){
-    //this.dataService.getDate(this.dateDetailsPage.date).subscribe( (data) => {this.currentViewDate = data;})
-  }
-
   ngOnInit()
   {
     this.viewDate = this.dateDetailsPage.date;
     this.fetchData();
   }
-
 
   fetchData() {
     this.dataService.getShifts().subscribe((data) => {
@@ -113,36 +107,6 @@ export class DateDetailsComponent implements OnInit{
         }
       })
     })
-
-    /*
-    const newDateDetail: DateDetail = {
-      id: 1,
-      date: this.viewDate,
-      shifts: this.currentShifts,
-    }
-    */
-    //this.dataService.addDateDetail(newDateDetail).subscribe();
-    
-
-  }
-  
-  
-
-  addCalendarEvents():void {
-    this.fetchData();
-    this.currentShifts.forEach((shift) => {
-      let startDate: Date
-      shift.date.setHours(shift.startHour)
-      shift.date.setMinutes(shift.startMinute)
-      startDate = shift.date
-      this.events.push({
-        start: startOfMinute(startDate),
-        end: endOfMinute(shift.endMinute),
-        title: shift.employee.firstName,
-        color: colors.red,
-      })
-    })
-    console.log(this.events[0].start)
   }
 
 activeDayIsOpen: boolean = true;
