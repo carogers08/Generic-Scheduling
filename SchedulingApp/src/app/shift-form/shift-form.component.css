@@ -41,3 +41,16 @@ input {
     margin-top: 10px;
 
 }
+
+select {
+  border-radius: 30px;
+  background-color: rgb(0, 69, 22);
+  border-color: rgb(1, 70, 23);
+  color: antiquewhite;
+  padding: 5px 10px;
+  font-size: 20px;
+  box-shadow: 0 10px 10px 0 rgba(1, 70, 23, 0.8),
+    0 10px 11px 0 rgba(1, 70, 23, 0.8), 0 10px 11px 0 rgba(1, 70, 23, 0.8);
+  margin-bottom: 40px;
+  margin-top: 10px;
+}

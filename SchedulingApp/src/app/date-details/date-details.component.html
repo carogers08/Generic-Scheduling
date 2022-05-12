@@ -7,7 +7,7 @@
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()"
-          (click)="addCalendarEvents()"
+          (click)="fetchData()"
         >
           Previous
       </button>
@@ -15,7 +15,7 @@
           class="tbtn"
           mwlCalendarToday
           [(viewDate)]="viewDate"
-          (click)="addCalendarEvents()"
+          (click)="fetchData()"
         >
           Today
         </button>
@@ -25,11 +25,15 @@
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()"
-          (click)="addCalendarEvents()"
+          (click)="fetchData()"
         >
           Next
         </button>
         <h3 class="titlebtn">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+
+        <button >
+          Go back
+        </button>
       </div>
     </div>
     {{events}}

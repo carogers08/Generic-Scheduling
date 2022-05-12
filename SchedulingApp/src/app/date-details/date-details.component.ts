@@ -111,6 +111,7 @@ export class DateDetailsComponent implements OnInit{
           })
         }
       })
+     
     })
 
     /*
@@ -126,9 +127,10 @@ export class DateDetailsComponent implements OnInit{
   }
   
   
-
+  /*
   addCalendarEvents():void {
     this.fetchData();
+    console.log(this.events);
     this.currentShifts.forEach((shift) => {
       let startDate: Date
       shift.date.setHours(shift.startHour)
@@ -141,8 +143,7 @@ export class DateDetailsComponent implements OnInit{
         color: colors.red,
       })
     })
-    console.log(this.events[0].start)
-  }
+  } */
 
 activeDayIsOpen: boolean = true;
 
