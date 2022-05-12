@@ -8,15 +8,15 @@ import { DateDetail } from 'src/model/DateDetail';
 })
 export class AppComponent {
   currentDetails: DateDetail;
-  showDetails: Boolean = false;
+  showDetailsPage: Boolean = false;
   
   ViewDetails(dateDetailsPage: DateDetail) {
     this.currentDetails = dateDetailsPage;
-    this.showDetails = true;
+    this.showDetailsPage = true;
   }
 
   changeDetails() {
-    this.showDetails = !this.showDetails;
-    console.log(this.showDetails);
+    this.showDetailsPage = !this.showDetailsPage;
+    console.log(this.showDetailsPage);
   }
 }

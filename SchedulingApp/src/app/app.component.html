@@ -2,9 +2,9 @@
 
 <app-calendar 
     (showDetails)="ViewDetails($event)"
-    *ngIf="!showDetails"
+    *ngIf="!showDetailsPage"
 ></app-calendar>
 <app-date-details 
     [dateDetailsPage]="currentDetails"
-    *ngIf="showDetails"
+    *ngIf="showDetailsPage"
 ></app-date-details>
