@@ -85,52 +85,50 @@ export class DateDetailsComponent implements OnInit{
 
   ngOnInit()
   {
-
+    this.viewDate = this.dateDetailsPage.date;
     this.fetchData();
     this.addCalendarEvents();
   }
 
-  
+
   fetchData() {
     
     this.dataService.getShifts().subscribe((data) => {
       this.shifts = data;
+      console.log("data"+data)
     })
     
-    
-    this.dataService.getDateDetails().subscribe((data) => {
-      this.dateDetails = data;
-    })
-    
-    /*
+    console.log("SIZE OF SHIFTS"+this.shifts.length)
     for (let i=0; i<this.shifts.length; i++)
     {
-      if (isSameDay(this.dataService.getDate(this.dateDetails), this.currentDate))
+      if (isSameDay(this.viewDate, this.shifts[i].date))
       {
         this.currentShifts[i]=this.shifts[i];
       }
-      console.log(this.viewDate);
     }
     
-    this.currentDate = {
-      id: 234,
-      date: this.currentShifts[0].startTime,
-      shifts: this.currentShifts
+    /*
+    const newDateDetail: DateDetail = {
+      id: 1,
+      date: this.viewDate,
+      shifts: this.currentShifts,
     }
     */
+    //this.dataService.addDateDetail(newDateDetail).subscribe();
+    
 
   }
   
   
 
   addCalendarEvents():void {
-    
-    console.log("date is " +this.dateDetailsPage.dateString);
-    for (let i=0; i<this.dateDetailsPage.shifts.length; i++){
+    this.fetchData();
+    console.log("size"+this.viewDate+this.currentShifts.length);
+    for (let i=0; i<this.currentShifts.length; i++){
       this.events[i]={
-        start: startOfMinute(this.dateDetailsPage.shifts[i].startMinute),
-        end: endOfMinute(this.dateDetailsPage.shifts[i].endMinute),
-        title: this.dateDetailsPage.shifts[i].employee.firstName,
+        start: startOfMinute(this.currentShifts[i].startMinute),
+        end: endOfMinute(this.currentShifts[i].endMinute),
+        title: this.currentShifts[i].employee.firstName,
         color: colors.red,
       }
     }

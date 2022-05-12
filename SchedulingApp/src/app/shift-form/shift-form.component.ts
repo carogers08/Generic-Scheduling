@@ -5,6 +5,7 @@ import { Shift } from 'src/model/shift';
 import { Employee } from 'src/model/employee';
 import { Observable } from 'rxjs';
 import { Time } from '@angular/common';
+import { DateDetail } from 'src/model/DateDetail';
 
 
 @Component({
@@ -16,10 +17,11 @@ export class ShiftFormComponent implements OnInit {
 
   @Output() saved = new EventEmitter<boolean>()
   @Input() shift!: Shift
-
+  @Input() dateDetailsPage: DateDetail;
+  
   isUpdate = false
   employees: Employee[] = []
-
+  @Input() viewDate1: Date = new Date;
   constructor(
     private readonly service: DataService,
     private readonly formBuilder: FormBuilder
@@ -79,10 +81,13 @@ export class ShiftFormComponent implements OnInit {
       formData.startMinute = Number(formData.startTime.toString().split(':')[1])
       formData.endHour = Number(formData.endTime.toString().split(':')[0])
       formData.endMinute = Number(formData.endTime.toString().split(':')[1])
+      formData.date = this.viewDate1;
       if (formData.endHour > formData.startHour) {
+        
         this.service.updateShift(formData).subscribe()
       }
     } else {
+      formData.date = this.viewDate1;
       formData.startHour = Number(formData.startTime.toString().split(':')[0])
       formData.startMinute = Number(formData.startTime.toString().split(':')[1])
       formData.endHour = Number(formData.endTime.toString().split(':')[0])
@@ -91,7 +96,10 @@ export class ShiftFormComponent implements OnInit {
         this.service.addShift(formData).subscribe()
       }
     }
+
+
   }
+  
 
   reset() {
     this.updateFormData()

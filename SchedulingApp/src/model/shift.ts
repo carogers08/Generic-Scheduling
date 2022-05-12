@@ -5,6 +5,7 @@ export interface Shift { //under the assumption of no overnight shifts
     employee: Employee,
     
     //start and end time uses the 24 hour clock
+    date: Date,
     startHour: number,
     startMinute: number,
     endHour: number,
