@@ -106,7 +106,6 @@ export class DateDetailsComponent implements OnInit{
         }
       })
     })
-
     /*
     const newDateDetail: DateDetail = {
       id: 1,
@@ -134,6 +133,7 @@ export class DateDetailsComponent implements OnInit{
   }
 
 activeDayIsOpen: boolean = true;
+
 
 dateIsEqual(date: Date, shiftDay: Date) {
   if (date.getFullYear() == Number(shiftDay.toString().split('-')[0]) && 
