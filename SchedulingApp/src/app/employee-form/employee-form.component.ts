@@ -70,13 +70,15 @@ export class EmployeeFormComponent implements OnInit {
     if (this.isUpdate) {
       this.service.updateEmployee(formData).subscribe()
       this.saved.emit(true)
+      this.formGroup.reset()
     } else {
       this.service.addEmployee(formData).subscribe()
       this.saved.emit(true)
+      this.formGroup.reset()
     }
   }
 
   reset() {
-    this.updateFormData()
+    this.formGroup.reset()
   }
 }

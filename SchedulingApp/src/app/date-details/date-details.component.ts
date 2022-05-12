@@ -31,8 +31,8 @@ import {
 import { DataService } from '../data.service';
 import { Employee } from 'src/model/employee';
 import { Shift } from 'src/model/shift';
-import { DateDetail } from 'src/model/DateDetail';
 import { DatePipe } from '@angular/common';
+import { DateDetail } from 'src/model/DateDetail';
 
 const colors: any = {
   red: {
@@ -83,15 +83,11 @@ export class DateDetailsComponent implements OnInit{
   currentShifts: Shift[] = [];
   events: CalendarEvent[]=[];
 
-
-
-
   ngOnInit()
   {
     this.viewDate = this.dateDetailsPage.date;
     this.fetchData();
   }
-
 
   fetchData() {
     this.dataService.getShifts().subscribe((data) => {
@@ -115,13 +111,7 @@ export class DateDetailsComponent implements OnInit{
         }
       })
     })
-
-
-    
-
   }
-  
-  
 
 activeDayIsOpen: boolean = true;
 

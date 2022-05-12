@@ -43,4 +43,4 @@
 
     <button class="btn btn-primary" (click)="showEmployeeForm()">Add Employee</button>
   </div>
-  <app-employee-form *ngIf="showForm"></app-employee-form>
+  <app-employee-form *ngIf="showForm" (saved)="showForm = !showForm"></app-employee-form>
