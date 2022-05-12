@@ -1,31 +1,31 @@
 <div class="row text-center">
     <div class="col-md-4">
-      <div class="btn-group">
-        <div
-          class="btn btn-primary"
+      <div class="btn-group1">
+        <button
+          class="previous-btn"
           mwlCalendarPreviousView
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()"
         >
           Previous
-        </div>
-        <div
-          class="btn btn-outline-secondary"
+        </button>
+        <button
+          class="today-btn"
           mwlCalendarToday
           [(viewDate)]="viewDate"
         >
           Today
-        </div>
-        <div
-          class="btn btn-primary"
+        </button>
+        <button
+          class="next-btn"
           mwlCalendarNextView
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()"
         >
           Next
-        </div>
+      </button>
       </div>
     </div>
     <div class="col-md-4">

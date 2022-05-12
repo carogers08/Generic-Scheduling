@@ -35,7 +35,7 @@ import { DateDetail } from 'src/model/DateDetail';
 
 const colors: any = {
   red: {
-    primary: '#ad2121',
+    primary: '#014617',
     secondary: '#FAE3E3',
   },
   blue: {

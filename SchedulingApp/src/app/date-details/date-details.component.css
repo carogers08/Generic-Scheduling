@@ -1,6 +1,25 @@
-mwl-calendar-day-view::events {
-    width: 50px;
+h3 {
+    margin-left: 100px;
+    color: rgb(1, 70, 23);
 }
-[events] {
-    width: 50px;
-}
+
+button {
+    
+    border-radius: 30px;
+    background-color: rgb(1, 70, 23);
+    border-color: rgb(1, 70, 23);
+    color: antiquewhite;
+    padding: 5px 10px;
+    font-size: 20px;
+    box-shadow: 0 10px 10px 0 rgba(1, 70, 23, 0.8),
+      0 10px 11px 0 rgba(1, 70, 23, 0.8), 0 10px 11px 0 rgba(1, 70, 23, 0.8);
+    margin-bottom: 100px;
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+
+  button:hover {
+    background-color: antiquewhite;
+    border-color: rgb(1, 70, 23);
+    color: rgb(1, 70, 23);
+  }

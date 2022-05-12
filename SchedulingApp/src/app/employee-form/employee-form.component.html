@@ -1,20 +1,21 @@
-<form [formGroup]="formGroup">
-    <div style="margin:5px">Employee ID: 
+<form
+[formGroup]="formGroup">
+    <div>Employee ID: 
         <input formControlName="employeeID">
     </div>
-    <div style="margin:5px">First Name: 
+    <div >First Name: 
         <input formControlName="firstName">
     </div>
-    <div style="margin:5px">Last Name: 
+    <div >Last Name: 
         <input formControlName="lastName">
     </div>
-    <div style="margin:5px">Wage: 
+    <div >Wage: 
         <input formControlName="wage">
     </div>
-    <div style="margin:5px">Position: 
+    <div >Position: 
         <input formControlName="position">
     </div>
-    <div style="margin:5px">Badge Number: 
+    <div>Badge Number: 
         <input formControlName="badge">
     </div>
     <button class="button" (click)="reset()">Reset</button>
