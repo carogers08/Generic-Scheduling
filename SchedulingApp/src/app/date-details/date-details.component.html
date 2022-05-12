@@ -7,7 +7,7 @@
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()"
-          (click)="addCalendarEvents()"
+          (click)="fetchData()"
         >
           Previous
       </button>
@@ -15,7 +15,7 @@
           class="tbtn"
           mwlCalendarToday
           [(viewDate)]="viewDate"
-          (click)="addCalendarEvents()"
+          (click)="fetchData()"
         >
           Today
         </button>
@@ -25,7 +25,7 @@
           [view]="view"
           [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()"
-          (click)="addCalendarEvents()"
+          (click)="fetchData()"
         >
           Next
         </button>

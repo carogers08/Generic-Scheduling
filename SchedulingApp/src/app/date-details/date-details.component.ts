@@ -89,7 +89,6 @@ export class DateDetailsComponent implements OnInit{
   {
     this.viewDate = this.dateDetailsPage.date;
     this.fetchData();
-    this.addCalendarEvents();
   }
 
 
@@ -98,14 +97,17 @@ export class DateDetailsComponent implements OnInit{
       data.forEach((shift) => {
         if (this.dateIsEqual(this.viewDate, shift.date)) {
           this.events.push({
-            start: startOfMinute(shift.startMinute),
-            end: endOfMinute(shift.endMinute),
+            start: startOfMinute(shift.date),
+            end: endOfMinute(shift.date),
             title: shift.employee.firstName,
             color: colors.red,
           })
         }
       })
+     
     })
+
+    
     /*
     const newDateDetail: DateDetail = {
       id: 1,
@@ -119,9 +121,10 @@ export class DateDetailsComponent implements OnInit{
   }
   
   
-
+  /*
   addCalendarEvents():void {
     this.fetchData();
+    console.log(this.events);
     this.currentShifts.forEach((shift) => {
       this.events.push({
         start: startOfMinute(shift.startMinute),
@@ -130,7 +133,7 @@ export class DateDetailsComponent implements OnInit{
         color: colors.red,
       })
     })
-  }
+  } */
 
 activeDayIsOpen: boolean = true;
 
