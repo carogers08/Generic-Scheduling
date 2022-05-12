@@ -101,7 +101,7 @@ export class DateDetailsComponent implements OnInit{
         }
       })
     })
-    
+    console.log(this.currentShifts.length)
     /*
     const newDateDetail: DateDetail = {
       id: 1,
@@ -118,14 +118,14 @@ export class DateDetailsComponent implements OnInit{
 
   addCalendarEvents():void {
     this.fetchData();
-    for (let i=0; i<this.currentShifts.length; i++){
-      this.events[i]={
-        start: startOfMinute(this.currentShifts[i].startMinute),
-        end: endOfMinute(this.currentShifts[i].endMinute),
-        title: this.currentShifts[i].employee.firstName,
+    this.currentShifts.forEach((shift) => {
+      this.events.push({
+        start: startOfMinute(shift.startMinute),
+        end: endOfMinute(shift.endMinute),
+        title: shift.employee.firstName,
         color: colors.red,
-      }
-    }
+      })
+    })
   }
 
 activeDayIsOpen: boolean = true;
