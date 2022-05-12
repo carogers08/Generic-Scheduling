@@ -32,6 +32,7 @@ import { DataService } from '../data.service';
 import { Employee } from 'src/model/employee';
 import { Shift } from 'src/model/shift';
 import { DateDetail } from 'src/model/DateDetail';
+import { DatePipe } from '@angular/common';
 
 const colors: any = {
   red: {
@@ -54,7 +55,8 @@ const colors: any = {
   styleUrls: ['./date-details.component.css']
 })
 export class DateDetailsComponent implements OnInit{
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService,
+    private datePipe: DatePipe) { }
   @Output() showDetails = new EventEmitter<DateDetail>()
 
   @Input() dateDetailsPage: DateDetail;
@@ -92,20 +94,13 @@ export class DateDetailsComponent implements OnInit{
 
 
   fetchData() {
-    
     this.dataService.getShifts().subscribe((data) => {
-      this.shifts = data;
-      console.log("data"+data)
+      data.forEach((shift) => {
+        if (this.dateIsEqual(this.viewDate, shift.date)) {
+          this.currentShifts.push(shift)
+        }
+      })
     })
-    
-    console.log("SIZE OF SHIFTS"+this.shifts.length)
-    for (let i=0; i<this.shifts.length; i++)
-    {
-      if (isSameDay(this.viewDate, this.shifts[i].date))
-      {
-        this.currentShifts[i]=this.shifts[i];
-      }
-    }
     
     /*
     const newDateDetail: DateDetail = {
@@ -123,7 +118,6 @@ export class DateDetailsComponent implements OnInit{
 
   addCalendarEvents():void {
     this.fetchData();
-    console.log("size"+this.viewDate+this.currentShifts.length);
     for (let i=0; i<this.currentShifts.length; i++){
       this.events[i]={
         start: startOfMinute(this.currentShifts[i].startMinute),
@@ -134,13 +128,16 @@ export class DateDetailsComponent implements OnInit{
     }
   }
 
-
-
-
-
 activeDayIsOpen: boolean = true;
 
-
+dateIsEqual(date: Date, shiftDay: Date) {
+  if (date.getFullYear() == Number(shiftDay.toString().split('-')[0]) && 
+  date.getDate() == Number(shiftDay.toString().split('-')[2].split('T')[0]) &&
+  date.getMonth() + 1 == Number(shiftDay.toString().split('-')[1])) {
+    return true
+  }
+  return false
+}
 
 
 
