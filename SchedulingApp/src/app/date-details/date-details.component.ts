@@ -94,14 +94,15 @@ export class DateDetailsComponent implements OnInit{
 
   fetchData() {
     this.dataService.getShifts().subscribe((data) => {
+      this.events = []
       data.forEach((shift) => {
         if (this.dateIsEqual(this.viewDate, shift.date)) {
-          let startDate: Date = this.viewDate
+          let startDate = new Date(this.viewDate)
           startDate.setHours(shift.startHour)
           startDate.setMinutes(shift.startMinute)
-          let endDate: Date = this.viewDate
-          endDate.setHours(shift.startHour)
-          endDate.setMinutes(shift.startMinute)
+          let endDate = new Date(this.viewDate)
+          endDate.setHours(shift.endHour)
+          endDate.setMinutes(shift.endMinute)
           
           this.events.push({
             start: startOfMinute(startDate),
@@ -111,7 +112,6 @@ export class DateDetailsComponent implements OnInit{
           })
         }
       })
-     
     })
 
     /*
@@ -127,10 +127,9 @@ export class DateDetailsComponent implements OnInit{
   }
   
   
-  /*
+
   addCalendarEvents():void {
     this.fetchData();
-    console.log(this.events);
     this.currentShifts.forEach((shift) => {
       let startDate: Date
       shift.date.setHours(shift.startHour)
@@ -143,7 +142,8 @@ export class DateDetailsComponent implements OnInit{
         color: colors.red,
       })
     })
-  } */
+    console.log(this.events[0].start)
+  }
 
 activeDayIsOpen: boolean = true;
 
