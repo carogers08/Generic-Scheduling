@@ -15,6 +15,7 @@ import { ShiftFormComponent } from './shift-form/shift-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DateDetailsComponent } from './date-details/date-details.component';
 import { DetailsComponent } from './details/details.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { DetailsComponent } from './details/details.component';
       useFactory: adapterFactory,
     })
   ],
-  providers: [DataService],
+  providers: [DataService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
