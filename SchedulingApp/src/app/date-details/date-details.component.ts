@@ -97,13 +97,15 @@ export class DateDetailsComponent implements OnInit{
     this.dataService.getShifts().subscribe((data) => {
       data.forEach((shift) => {
         if (this.dateIsEqual(this.viewDate, shift.date)) {
-          this.currentShifts.push(shift)
+          this.events.push({
+            start: startOfMinute(shift.startMinute),
+            end: endOfMinute(shift.endMinute),
+            title: shift.employee.firstName,
+            color: colors.red,
+          })
         }
       })
     })
-    
-    console.log(this.currentShifts);
-    console.log(this.currentShifts.length)
     /*
     const newDateDetail: DateDetail = {
       id: 1,
