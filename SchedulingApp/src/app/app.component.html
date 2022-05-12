@@ -7,4 +7,5 @@
 <app-date-details 
     [dateDetailsPage]="currentDetails"
     *ngIf="showDetailsPage"
+    (showDetailsPage)="showDetailsPage=false"
 ></app-date-details>

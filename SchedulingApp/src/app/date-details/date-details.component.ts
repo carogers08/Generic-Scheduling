@@ -60,6 +60,9 @@ export class DateDetailsComponent implements OnInit{
   @Output() showDetails = new EventEmitter<DateDetail>()
 
   @Input() dateDetailsPage: DateDetail;
+  @Output() showDetailsPage = new EventEmitter<boolean>()
+
+
 
   @Input()   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
@@ -81,9 +84,7 @@ export class DateDetailsComponent implements OnInit{
   events: CalendarEvent[]=[];
 
 
-  getViewDate(){
-    //this.dataService.getDate(this.dateDetailsPage.date).subscribe( (data) => {this.currentViewDate = data;})
-  }
+
 
   ngOnInit()
   {
@@ -103,47 +104,24 @@ export class DateDetailsComponent implements OnInit{
           let endDate = new Date(this.viewDate)
           endDate.setHours(shift.endHour)
           endDate.setMinutes(shift.endMinute)
-          
+          console.log(shift.employee.firstName)
           this.events.push({
             start: startOfMinute(startDate),
             end: endOfMinute(endDate),
-            title: shift.employee.firstName,
+            
+            title: shift.employee.toString(),
             color: colors.red,
           })
         }
       })
     })
 
-    /*
-    const newDateDetail: DateDetail = {
-      id: 1,
-      date: this.viewDate,
-      shifts: this.currentShifts,
-    }
-    */
-    //this.dataService.addDateDetail(newDateDetail).subscribe();
+
     
 
   }
   
   
-
-  addCalendarEvents():void {
-    this.fetchData();
-    this.currentShifts.forEach((shift) => {
-      let startDate: Date
-      shift.date.setHours(shift.startHour)
-      shift.date.setMinutes(shift.startMinute)
-      startDate = shift.date
-      this.events.push({
-        start: startOfMinute(startDate),
-        end: endOfMinute(shift.endMinute),
-        title: shift.employee.firstName,
-        color: colors.red,
-      })
-    })
-    console.log(this.events[0].start)
-  }
 
 activeDayIsOpen: boolean = true;
 
@@ -159,7 +137,9 @@ dateIsEqual(date: Date, shiftDay: Date) {
 
 
 
-
+getShowDetailsPage() {
+  this.showDetailsPage.emit(false);
+}
 
 
 }

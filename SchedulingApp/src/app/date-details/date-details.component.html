@@ -31,12 +31,12 @@
         </button>
         <h3 class="titlebtn">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
 
-        <button >
+        <button (click)="getShowDetailsPage()">
           Go back
         </button>
       </div>
     </div>
-    {{events}}
+ 
 <mwl-calendar-day-view
 [viewDate]="viewDate"
 [events]="events"
