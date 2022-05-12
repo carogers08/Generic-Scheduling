@@ -60,6 +60,9 @@ export class DateDetailsComponent implements OnInit{
   @Output() showDetails = new EventEmitter<DateDetail>()
 
   @Input() dateDetailsPage: DateDetail;
+  @Output() showDetailsPage = new EventEmitter<boolean>()
+
+
 
   @Input()   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
@@ -97,11 +100,12 @@ export class DateDetailsComponent implements OnInit{
           let endDate = new Date(this.viewDate)
           endDate.setHours(shift.endHour)
           endDate.setMinutes(shift.endMinute)
-          
+          console.log(shift.employee.firstName)
           this.events.push({
             start: startOfMinute(startDate),
             end: endOfMinute(endDate),
-            title: shift.employee.firstName,
+            
+            title: shift.employee.toString(),
             color: colors.red,
           })
         }
@@ -123,7 +127,9 @@ dateIsEqual(date: Date, shiftDay: Date) {
 
 
 
-
+getShowDetailsPage() {
+  this.showDetailsPage.emit(false);
+}
 
 
 }
