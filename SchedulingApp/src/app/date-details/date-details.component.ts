@@ -37,7 +37,7 @@ import { DatePipe } from '@angular/common';
 const colors: any = {
   red: {
     primary: '#014617',
-    secondary: '#FAE3E3',
+    secondary: '#014617',
   },
   blue: {
     primary: '#1e90ff',
